@@ -1,4 +1,5 @@
 node_modules
-lib/static
+lib/web/static
+lib/web/ui/
 coverage/
-lib/GUI/
+
