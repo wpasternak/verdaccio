@@ -2,19 +2,19 @@
 
 const express = require('express');
 const bodyParser = require('body-parser');
-const Middleware = require('../middleware');
+const Middleware = require('../web/middleware');
 const match = Middleware.match;
 const validate_name = Middleware.validate_name;
 const validate_pkg = Middleware.validate_package;
 const encodeScopePackage = Middleware.encodeScopePackage;
 
-const whoami = require('./endpoint/whoami');
-const ping = require('./endpoint/ping');
-const user = require('./endpoint/user');
-const distTags = require('./endpoint/dist-tags');
-const publish = require('./endpoint/publish');
-const search = require('./endpoint/search');
-const pkg = require('./endpoint/package');
+const whoami = require('./api/whoami');
+const ping = require('./api/ping');
+const user = require('./api/user');
+const distTags = require('./api/dist-tags');
+const publish = require('./api/publish');
+const search = require('./api/search');
+const pkg = require('./api/package');
 
 module.exports = function(config, auth, storage) {
   /* eslint new-cap:off */
@@ -31,6 +31,7 @@ module.exports = function(config, auth, storage) {
   app.param('token', validate_name);
 
   // these can't be safely put into express url for some reason
+  // TODO: For some reason? what reason?
   app.param('_rev', match(/^-rev$/));
   app.param('org_couchdb_user', match(/^org\.couchdb\.user:/));
   app.param('anything', match(/.*/));
